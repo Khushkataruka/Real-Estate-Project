@@ -13,7 +13,7 @@ const RealEstateForm = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const url=process.env.URL
+  const url="https://real-estate-backend-i5n5.onrender.com"
   // Fetch available locations
   useEffect(() => {
     const fetchLocations = async () => {
