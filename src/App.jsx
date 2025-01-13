@@ -13,13 +13,15 @@ const RealEstateForm = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const url="https://real-estate-backend-i5n5.onrender.com"
+  const url = "https://real-estate-backend-i5n5.onrender.com"; // Backend URL
+
   // Fetch available locations
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await axios.get(`${URL}/get-location-names`);
+        const response = await axios.get(`${url}/get-location-names`);
         setLocations(response.data.locations || []);
+        console.log("Fetched locations: " + JSON.stringify(locations)); // Debugging log
       } catch (err) {
         console.error("Error fetching locations:", err);
         setError("Failed to load locations. Please try again.");
@@ -49,9 +51,8 @@ const RealEstateForm = () => {
 
     setLoading(true);
     try {
-
       const response = await axios.post(
-        `${URL}/get-estimated-price`,
+        `${url}/get-estimated-price`,
         qs.stringify({
           location,
           bhk: Number(bhk),
@@ -64,7 +65,7 @@ const RealEstateForm = () => {
           },
         }
       );
-      setEstimatedPrice(response.data.estimated_price*1e5);
+      setEstimatedPrice(response.data.estimated_price * 1e5); // Assuming price needs to be multiplied by 1e5
     } catch (err) {
       console.error("Error fetching price:", err);
       setError("Failed to fetch estimated price. Please try again.");
