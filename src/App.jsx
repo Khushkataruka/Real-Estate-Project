@@ -13,12 +13,12 @@ const RealEstateForm = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const url=process.env.URL
   // Fetch available locations
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/get-location-names");
+        const response = await axios.get(`${URL}/get-location-names`);
         setLocations(response.data.locations || []);
       } catch (err) {
         console.error("Error fetching locations:", err);
@@ -49,8 +49,9 @@ const RealEstateForm = () => {
 
     setLoading(true);
     try {
+
       const response = await axios.post(
-        "http://127.0.0.1:5000/get-estimated-price",
+        `${URL}/get-estimated-price`,
         qs.stringify({
           location,
           bhk: Number(bhk),
